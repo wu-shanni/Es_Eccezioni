@@ -8,7 +8,7 @@ void main(){
     IO.println("\nIl saldo attuale è:   " + conto.saldo + " €");
 
     if (conto.importo < conto.saldo){
-        IO.println("\nImporto prelevato:   " + conto.importo + " €");
+        IO.println("\nPrelevato con successo:   " + conto.importo + " €");
         IO.println("Saldo attuale: " + (conto.saldo - conto.importo) + " €");
     } else {
         IO.println("Non hai abbastanza soldi, te ne mancano " + Math.abs(conto.saldo - conto.importo) + " €");
