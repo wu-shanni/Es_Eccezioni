@@ -2,22 +2,23 @@ package org.example;
 
 public class ContoBancario {
     public Double saldo;
-    public Double importo;
 
-    public ContoBancario(Double saldo, Double importo){
+    public ContoBancario(Double saldo){
         this.saldo = saldo;
-        this.importo = importo;
     }
 
-    public Double getImporto() {
-        return importo;
+    public void preleva(double importo) throws SaldoInsufficienteException {
+        if (importo <= 0) {
+            throw new ImportoNonValidoException("Errore: L'importo del prelievo deve essere maggiore di zero.");
+        }
+
+        if (importo > saldo) {
+            throw new SaldoInsufficienteException(saldo, importo);
+        }
+        saldo -= importo;
     }
 
     public Double getSaldo() {
         return saldo;
-    }
-
-    public void setImporto(Double importo) {
-        this.importo = importo;
     }
 }

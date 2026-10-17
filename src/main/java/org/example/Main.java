@@ -1,17 +1,28 @@
 import org.example.ContoBancario;
+import org.example.ImportoNonValidoException;
 import org.example.SaldoInsufficienteException;
 
 void main(){
-    // ContoBancario conto = new ContoBancario(100.00, 31.28);     //abbastanza
-     ContoBancario conto = new ContoBancario(100.00, 264.73);     // non abbastanza
+     ContoBancario conto = new ContoBancario(100.00);
 
     IO.println("\nIl saldo attuale è:   " + conto.saldo + " €");
 
-    if (conto.importo < conto.saldo){
-        IO.println("\nPrelevato con successo:   " + conto.importo + " €");
-        IO.println("Saldo attuale: " + (conto.saldo - conto.importo) + " €");
-    } else {
-        IO.println("Non hai abbastanza soldi, te ne mancano " + Math.abs(conto.saldo - conto.importo) + " €");
-        throw new SaldoInsufficienteException("Saldo insufficiente");
+    // prelevato troppo
+    try {
+        conto.preleva(238.0);
+    } catch (SaldoInsufficienteException e) {
+        IO.println("\nImporto richiesto: " + e.getImportoRichiesto() + " €");
+        IO.println("\tMancanza di denaro: " + e.getMancanza() + " euro.");
+    }
+
+
+
+    //prelievo valido
+    try {
+        conto.preleva(54.0);
+        System.out.println("\nOperazione completata con successo!");
+        System.out.println("Nuovo saldo disponibile: " + conto.getSaldo() + " €");
+    } catch (SaldoInsufficienteException e) {
+        System.out.println(e.getMessage());
     }
 }
